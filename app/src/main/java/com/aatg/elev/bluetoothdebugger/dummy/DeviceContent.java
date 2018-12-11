@@ -11,17 +11,17 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class DeviceContent {
 
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<DeviceItem> ITEMS = new ArrayList<DeviceItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, DeviceItem> ITEM_MAP = new HashMap<String, DeviceItem>();
 
     private static final int COUNT = 25;
 
@@ -32,13 +32,13 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(DeviceItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.name, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem("Device " + String.valueOf(position), "AA:BB:CC:DD:EE", makeDetails(position));
+    private static DeviceItem createDummyItem(int position) {
+        return new DeviceItem("Device " + String.valueOf(position), "AA:BB:CC:DD:EE", makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -53,12 +53,12 @@ public class DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem {
+    public static class DeviceItem {
         public final String name;
         public final String mac;
         public final String details;
 
-        public DummyItem(String name, String mac, String details) {
+        public DeviceItem(String name, String mac, String details) {
             this.name = name;
             this.mac = mac;
             this.details = details;
