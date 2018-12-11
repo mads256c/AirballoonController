@@ -1,5 +1,7 @@
 package com.aatg.elev.bluetoothdebugger;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.aatg.elev.bluetoothdebugger.dummy.DeviceContent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
 
@@ -26,10 +32,50 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Refreshing bluetooth devices", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+
+                refreshBluetoothDevices();
             }
         });
+
+        refreshBluetoothDevices();
+
+    }
+
+    private void refreshBluetoothDevices(){
+        DeviceContent.ITEMS.clear();
+        DeviceContent.ITEM_MAP.clear();
+
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (mBluetoothAdapter != null)
+        {
+            if (mBluetoothAdapter.isEnabled())
+            {
+                Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+                for(BluetoothDevice bt : pairedDevices)
+                {
+                    DeviceContent.addItem(new DeviceContent.DeviceItem(bt.getName(), bt.getAddress(), "My name jeff"));
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(this, "Enable Bluetooth and launch the app again", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+        else
+        {
+            Toast toast = Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG);
+            toast.show();
+
+            DeviceContent.addItem(new DeviceContent.DeviceItem("You", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            DeviceContent.addItem(new DeviceContent.DeviceItem("Don't", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            DeviceContent.addItem(new DeviceContent.DeviceItem("Have", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            DeviceContent.addItem(new DeviceContent.DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+        }
     }
 
     @Override
