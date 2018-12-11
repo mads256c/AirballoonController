@@ -60,7 +60,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
                 for(BluetoothDevice bt : pairedDevices)
                 {
-                    items.add(new DeviceItem(bt.getName(), bt.getAddress(), "My name jeff"));
+                    items.add(new DeviceItem(bt.getName(), bt.getAddress(), bt));
                 }
             }
             else
@@ -74,10 +74,10 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             Toast toast = Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG);
             toast.show();
 
-            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE", null));
+            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE", null));
+            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE", null));
+            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", null));
         }
 
         itemFragment.updateView(items);
@@ -107,7 +107,17 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
     @Override
     public void onListFragmentInteraction(DeviceItem item) {
-        Toast toast = Toast.makeText(this, item.details, Toast.LENGTH_SHORT);
+
+        Toast toast;
+        if (item.device == null)
+        {
+            toast = Toast.makeText(this, "This is a null device", Toast.LENGTH_SHORT);
+        }
+        else
+        {
+            toast = Toast.makeText(this, item.device.toString(), Toast.LENGTH_SHORT);
+        }
+
         toast.show();
     }
 

@@ -1,5 +1,7 @@
 package com.aatg.elev.bluetoothdebugger.dummy;
 
+import android.bluetooth.BluetoothDevice;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +10,12 @@ import java.util.Map;
 public class DeviceItem {
     public final String name;
     public final String mac;
-    public final String details;
+    public final BluetoothDevice device;
 
-    public DeviceItem(String name, String mac, String details) {
+    public DeviceItem(String name, String mac, BluetoothDevice device) {
         this.name = name;
         this.mac = mac;
-        this.details = details;
+        this.device = device;
     }
 
     @Override
