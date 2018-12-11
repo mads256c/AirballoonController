@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aatg.elev.bluetoothdebugger.dummy.DeviceContent;
-import com.aatg.elev.bluetoothdebugger.dummy.DeviceContent.DeviceItem;
+import com.aatg.elev.bluetoothdebugger.dummy.DeviceItem;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -26,6 +29,8 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,15 +66,20 @@ public class ItemFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DeviceContent.ITEMS, mListener));
+            updateView(new ArrayList<DeviceItem>());
         }
         return view;
+    }
+
+    public void updateView(List<DeviceItem> deviceItems)
+    {
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(deviceItems, mListener));
     }
 
 

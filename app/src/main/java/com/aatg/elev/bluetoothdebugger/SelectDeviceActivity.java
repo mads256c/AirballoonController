@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.aatg.elev.bluetoothdebugger.dummy.DeviceContent;
+import com.aatg.elev.bluetoothdebugger.dummy.DeviceItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,16 @@ import java.util.Set;
 
 public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
 
+    private ItemFragment itemFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_device);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        itemFragment = (ItemFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +48,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
     }
 
     private void refreshBluetoothDevices(){
-        DeviceContent.ITEMS.clear();
-        DeviceContent.ITEM_MAP.clear();
+        List<DeviceItem> items = new ArrayList<DeviceItem>();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -57,7 +60,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
                 for(BluetoothDevice bt : pairedDevices)
                 {
-                    DeviceContent.addItem(new DeviceContent.DeviceItem(bt.getName(), bt.getAddress(), "My name jeff"));
+                    items.add(new DeviceItem(bt.getName(), bt.getAddress(), "My name jeff"));
                 }
             }
             else
@@ -71,11 +74,13 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             Toast toast = Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG);
             toast.show();
 
-            DeviceContent.addItem(new DeviceContent.DeviceItem("You", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            DeviceContent.addItem(new DeviceContent.DeviceItem("Don't", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            DeviceContent.addItem(new DeviceContent.DeviceItem("Have", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
-            DeviceContent.addItem(new DeviceContent.DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
+            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", "You don't have a bluetooth module"));
         }
+
+        itemFragment.updateView(items);
     }
 
     @Override
@@ -101,8 +106,9 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
     }
 
     @Override
-    public void onListFragmentInteraction(DeviceContent.DeviceItem item) {
+    public void onListFragmentInteraction(DeviceItem item) {
         Toast toast = Toast.makeText(this, item.details, Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }
