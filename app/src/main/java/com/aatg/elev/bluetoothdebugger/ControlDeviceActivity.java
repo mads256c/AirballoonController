@@ -36,12 +36,6 @@ public class ControlDeviceActivity extends AppCompatActivity {
     private OutputStream outputStream;
     private ConnectedThread connectedThread;
 
-    private Handler bluetoothHandler;
-
-    private CountDownTimer countDownTimer;
-
-    private StringBuilder recDataString = new StringBuilder();
-
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
@@ -49,16 +43,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_device);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Sending packet", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
 
-            sendPacket((byte)Integer.parseInt(packetIdEditText.getText().toString(), 16), Long.parseLong(packetContentEditText.getText().toString()));
-            }
-        });
         packetIdEditText = findViewById(R.id.editTextPacketId);
 
         //Assign a TextWatcher to the EditText
@@ -99,38 +84,26 @@ public class ControlDeviceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         device = intent.getParcelableExtra(EXTRA_MESSAGE);
 
+        if (device == null)
+        {
+            deviceView.setText("Fake device -  AA:BB:CC:DD:EE");
+            return;
+        }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Sending packet", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+
+                sendPacket((byte)Integer.parseInt(packetIdEditText.getText().toString(), 16), Long.parseLong(packetContentEditText.getText().toString()));
+            }
+        });
+
         deviceView.setText(device.getName() + " - " + device.getAddress());
 
         connect();
-
-
-
-        bluetoothHandler = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                inputEditText.setText((String)msg.obj);
-
-            }
-        };
-
-//        InputStream stream = null;
-//        try {
-//            stream = socket.getInputStream();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        while(true)
-//        {
-//            try {
-//
-//                int t = stream.read();
-//
-//                int i = stream.read();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         connectedThread = new ConnectedThread(socket);
         connectedThread.start();
@@ -257,10 +230,6 @@ public class ControlDeviceActivity extends AppCompatActivity {
 
 
                     setText("ID: " + id + " Data: " + result);
-
-
-
-                    bluetoothHandler.obtainMessage(0, "ID: " + id + " Data: " + result + "\n");
                 }
 
 
