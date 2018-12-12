@@ -2,6 +2,7 @@ package com.aatg.elev.bluetoothdebugger;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
+
+    public static final String EXTRA_MESSAGE = "com.aatg.elev.bluetoothdebugger.MESSAGE";
 
     private ItemFragment itemFragment;
 
@@ -119,6 +122,11 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         }
 
         toast.show();
+
+        Intent intent = new Intent(this, ControlDeviceActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, item.device);
+
+        startActivity(intent);
     }
 
 }
