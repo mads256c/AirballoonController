@@ -43,6 +43,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_device);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send);
 
         packetIdEditText = findViewById(R.id.editTextPacketId);
 
@@ -87,17 +88,46 @@ public class ControlDeviceActivity extends AppCompatActivity {
         if (device == null)
         {
             deviceView.setText("Fake device -  AA:BB:CC:DD:EE");
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isPacketValid())
+                    {
+                        Snackbar.make(view, "Sending packet", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                    else
+                    {
+                        Snackbar.make(view, "Invalid packet", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                }
+            });
+
             return;
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Sending packet", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
 
-                sendPacket((byte)Integer.parseInt(packetIdEditText.getText().toString(), 16), Long.parseLong(packetContentEditText.getText().toString()));
+
+                if (isPacketValid())
+                {
+                    Snackbar.make(view, "Sending packet", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+
+                    sendPacket((byte)Integer.parseInt(packetIdEditText.getText().toString(), 16), Long.parseLong(packetContentEditText.getText().toString()));
+                }
+                else
+                {
+                    Snackbar.make(view, "Invalid packet", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                }
+
+
             }
         });
 
@@ -107,6 +137,26 @@ public class ControlDeviceActivity extends AppCompatActivity {
 
         connectedThread = new ConnectedThread(socket);
         connectedThread.start();
+    }
+
+    private boolean isPacketValid()
+    {
+        String packetId = packetIdEditText.getText().toString();
+        String packetContent = packetContentEditText.getText().toString();
+
+        if (packetId.length() == 0) return false;
+        if (packetContent.length() == 0) return false;
+
+        try {
+            Integer.parseInt(packetId, 16);
+            Long.parseLong(packetContent);
+
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
     }
 
     private void connect()

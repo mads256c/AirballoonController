@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BluetoothDebugger</string>
     <string name="action_settings">Settings</string>
+    <string name="packet_id">Packet ID</string>
+    <string name="packet_content">Packet Content</string>
+    <string name="input_data">Input data:</string>
+    <string name="connected_device">Connected device:</string>
+    <string name="device_mac_placeholder">Device - AA:BB:CC:DD:EE</string>
 </resources>

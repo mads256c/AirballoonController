@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="Connected device:"
+                android:text="@string/connected_device"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="Device - AA:BB:CC:DD:EE" />
+                android:text="@string/device_mac_placeholder" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,9 +45,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
+                    android:autoText="false"
                     android:ems="10"
-                    android:hint="Packet ID"
-                    android:inputType="text|textCapCharacters|textNoSuggestions"
+                    android:hint="@string/packet_id"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapCharacters|textNoSuggestions"
                     android:maxLength="2"
                     android:singleLine="true" />
 
@@ -58,8 +60,9 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Packet Content"
-                    android:inputType="number" />
+                    android:hint="@string/packet_content"
+                    android:inputType="number"
+                    android:importantForAutofill="no" />
 
 
             </LinearLayout>
@@ -70,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="Input data:" />
+                android:text="@string/input_data" />
 
             <EditText
                 android:id="@+id/editTextInput"
@@ -80,7 +83,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textMultiLine"
-                android:text="dab" />
+                android:importantForAutofill="no" />
 
         </LinearLayout>
     </ScrollView>
