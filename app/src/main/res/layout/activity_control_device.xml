@@ -42,7 +42,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Packet ID"
-                android:inputType="number"
+                android:inputType="text|textCapCharacters|textNoSuggestions"
+                android:maxLength="2"
                 android:singleLine="true" />
 
             <EditText
@@ -57,6 +58,25 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Input data:" />
+
+        <EditText
+            android:id="@+id/editTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textMultiLine"
+            android:text="dab" />
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
