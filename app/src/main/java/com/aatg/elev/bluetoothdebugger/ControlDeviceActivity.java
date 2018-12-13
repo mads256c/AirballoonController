@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -14,10 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,8 +37,8 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private BottomNavigationView navigation;
 
-    private AddFragment addFragment = new AddFragment();
-    private ControlFragment controlFragment = new ControlFragment();
+    private AddViewFragment addViewFragment = new AddViewFragment();
+    private ControlViewFragment controlViewFragment = new ControlViewFragment();
     private DebugViewFragment debugViewFragment = new DebugViewFragment();
 
     private FragmentManager fragmentManager;
@@ -92,7 +88,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         masterLayout = findViewById(R.id.master_layout);
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(masterLayout.getId(), controlFragment).commit();
+        fragmentManager.beginTransaction().add(masterLayout.getId(), controlViewFragment).commit();
 
         Intent intent = getIntent();
         device = intent.getParcelableExtra(EXTRA_MESSAGE);
@@ -135,12 +131,12 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
     }
 
     private void showAddFragment(){
-        fragmentManager.beginTransaction().replace(masterLayout.getId(), addFragment).commit();
+        fragmentManager.beginTransaction().replace(masterLayout.getId(), addViewFragment).commit();
 
     }
 
     private void showControlFragment(){
-        fragmentManager.beginTransaction().replace(masterLayout.getId(), controlFragment).commit();
+        fragmentManager.beginTransaction().replace(masterLayout.getId(), controlViewFragment).commit();
     }
 
     private void showDebugFragment(){
@@ -211,7 +207,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         }
 
         for (IControlFragment fragment :
-                controlFragment.controlFragments) {
+                controlViewFragment.controlFragments) {
             if (fragment.getPacketId() == packet.id)
             {
                 fragment.handlePacket(packet);
@@ -247,12 +243,12 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private class InputThread extends Thread
     {
-        public volatile boolean keepRunning = true;
+        volatile boolean keepRunning = true;
 
         private InputStream stream;
         private IPacketHandler packetHandler;
 
-        public InputThread(BluetoothSocket socket, IPacketHandler packetHandler) throws IOException {
+        InputThread(BluetoothSocket socket, IPacketHandler packetHandler) throws IOException {
             stream = socket.getInputStream();
             this.packetHandler = packetHandler;
         }
