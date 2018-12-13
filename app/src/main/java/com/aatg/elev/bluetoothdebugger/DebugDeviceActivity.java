@@ -195,8 +195,31 @@ public class DebugDeviceActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        connectedThread.shouldRun = false;
+
+        try {
+            connectedThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            outputStream.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private class ConnectedThread extends Thread {
         private InputStream inputStream;
+
+        public boolean shouldRun = true;
 
         public ConnectedThread(BluetoothSocket socket)
         {
@@ -256,24 +279,37 @@ public class DebugDeviceActivity extends AppCompatActivity {
             Looper.prepare();
 
 
-            while(true)
+            while(shouldRun)
             {
-                packet = BluetoothPacket.readPacket(inputStream);
+                try {
+                    if (inputStream.available() >= 9)
+                    {
+                        packet = BluetoothPacket.readPacket(inputStream);
 
-                if (packet == null){
-                    displayError("Could not read packet");
-                    continue;
+                        if (packet == null){
+                            displayError("Could not read packet");
+                            continue;
+                        }
+
+                        if (packet.id == 2) //error
+                        {
+                            displayError("The air-balloon sent an error:\n" + BluetoothPacket.ErrorIdToString((int)packet.data));
+                        }
+
+                        setText("ID: " + packet.id + " Data: " + packet.data);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                if (packet.id == 2) //error
-                {
-                    displayError("The air-balloon sent an error:\n" + BluetoothPacket.ErrorIdToString((int)packet.data));
-                }
 
-                setText("ID: " + packet.id + " Data: " + packet.data);
             }
 
-
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }

@@ -97,6 +97,11 @@ public class BluetoothPacket {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + id + " Data: " + data;
+    }
+
     public static BluetoothPacket readPacket(InputStream stream)
     {
         try {
