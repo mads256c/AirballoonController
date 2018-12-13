@@ -117,17 +117,16 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
     @Override
     public void onListFragmentInteraction(DeviceItem item) {
 
-        Toast toast;
+
         if (item.device == null)
         {
-            toast = Toast.makeText(this, "This is a null device", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "This is a null device", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            toast = Toast.makeText(this, item.device.toString(), Toast.LENGTH_SHORT);
+            Toast.makeText(this, item.device.toString(), Toast.LENGTH_SHORT).show();
         }
 
-        toast.show();
 
         Intent intent = new Intent(this, ControlDeviceActivity.class);
         intent.putExtra(EXTRA_MESSAGE, item.device);

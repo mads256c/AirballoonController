@@ -67,7 +67,7 @@ public class DebugViewFragment extends Fragment implements IPacketHookListener {
 
                 /*If the String length is bigger than zero and it's not
                 composed only by the following characters: A to F and/or 0 to 9 */
-                if(!text.matches("[a-fA-F0-9]+") && length > 0)
+                if(length > 0 && !text.matches("[a-fA-F0-9]+"))
                 {
                     //Delete the last character
                     s.delete(length - 1, length);
