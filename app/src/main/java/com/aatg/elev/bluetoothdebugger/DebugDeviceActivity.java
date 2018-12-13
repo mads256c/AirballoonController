@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.EventListener;
 import java.util.UUID;
 
 import static com.aatg.elev.bluetoothdebugger.SelectDeviceActivity.EXTRA_MESSAGE;
@@ -198,6 +199,8 @@ public class DebugDeviceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (device == null) return;
 
         connectedThread.shouldRun = false;
 

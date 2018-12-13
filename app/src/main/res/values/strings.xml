@@ -10,4 +10,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error">Error</string>
+    <string name="ok">Ok</string>
+    <string name="ignore_future_errors">Ignore future errors</string>
+    <string name="packet_id">Packet ID</string>
+    <string name="packet_content">Packet Content</string>
 </resources>

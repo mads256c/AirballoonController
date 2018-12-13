@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BluetoothPacket {
+public final class BluetoothPacket {
     public static int packetLength = 9;
 
     public byte id = 0;
