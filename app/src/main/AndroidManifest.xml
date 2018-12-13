@@ -22,8 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControlDeviceActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".DebugDeviceActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ControlDeviceActivity"
+            android:label="@string/title_activity_control_device"></activity>
     </application>
 
 </manifest>

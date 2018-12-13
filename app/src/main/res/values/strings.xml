@@ -6,4 +6,8 @@
     <string name="input_data">Input data:</string>
     <string name="connected_device">Connected device:</string>
     <string name="device_mac_placeholder">Device - AA:BB:CC:DD:EE</string>
+    <string name="title_activity_control_device">ControlDeviceActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
