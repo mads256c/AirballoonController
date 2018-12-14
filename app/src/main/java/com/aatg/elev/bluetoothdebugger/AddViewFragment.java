@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class AddViewFragment extends Fragment {
+
+
+
     public AddViewFragment() {
         // Required empty public constructor
     }

@@ -15,8 +15,7 @@
             android:name=".SelectDeviceActivity"
             android:label="@string/title_activity_select_device"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".ControlDeviceActivity"
             android:label="@string/title_activity_control_device" />
@@ -28,6 +27,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
