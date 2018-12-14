@@ -82,6 +82,7 @@ public class PlotFragment extends Fragment implements IControlFragment {
 
         graph = (GraphView) view.findViewById(R.id.graph);
         graph.setTitle(label);
+        graph.getViewport().setXAxisBoundsManual(true);
 
 
         series = new LineGraphSeries<>();
@@ -90,6 +91,8 @@ public class PlotFragment extends Fragment implements IControlFragment {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                if (bluetoothController == null) return;
 
                 if (!bluetoothController.isFake()) sendPacket();
 
@@ -142,7 +145,7 @@ public class PlotFragment extends Fragment implements IControlFragment {
 
         graph.getViewport().setMinX(current - maxpoints);
         graph.getViewport().setMaxX(current);
-        graph.getViewport().setXAxisBoundsManual(true);
+
 
         current++;
     }

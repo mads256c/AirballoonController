@@ -241,11 +241,15 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     @Override
     public String getDeviceName() {
+        if (isFake()) return "Fake Device";
+
         return device.getName();
     }
 
     @Override
-    public String getDeviceAdress() {
+    public String getDeviceAddress() {
+        if (isFake()) return "AA:BB:CC:DD:EE:FF";
+
         return device.getAddress();
     }
 
@@ -362,7 +366,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
             bluetoothPackets.add(packet);
         }
 
-        public void stopThread(){
+        void stopThread(){
             keepRunning = false;
         }
 

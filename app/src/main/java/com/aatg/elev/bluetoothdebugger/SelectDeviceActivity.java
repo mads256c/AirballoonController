@@ -73,8 +73,14 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             }
             else
             {
-                Toast toast = Toast.makeText(this, "Enable Bluetooth and launch the app again", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_LONG);
                 toast.show();
+
+                items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new DeviceItem("Enabled", "AA:BB:CC:DD:EE:FF", null));
             }
         }
         else
@@ -82,10 +88,10 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             Toast toast = Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG);
             toast.show();
 
-            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE", null));
-            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE", null));
-            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE", null));
-            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE", null));
+            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
         }
 
         itemFragment.updateView(items);

@@ -128,7 +128,7 @@ public class DebugViewFragment extends Fragment implements IPacketHookListener {
             }
         });
 
-        deviceTextView.setText(bluetoothController.getDeviceName() + " - " + bluetoothController.getDeviceAdress());
+        deviceTextView.setText(bluetoothController.getDeviceName() + " - " + bluetoothController.getDeviceAddress());
 
         return view;
     }

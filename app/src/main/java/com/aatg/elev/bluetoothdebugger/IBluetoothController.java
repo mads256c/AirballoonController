@@ -9,7 +9,7 @@ public interface IBluetoothController {
 
     public boolean isFake();
     public String getDeviceName();
-    public String getDeviceAdress();
+    public String getDeviceAddress();
 
     public void sendPacket(BluetoothPacket packet);
 
