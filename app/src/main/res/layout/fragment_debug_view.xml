@@ -43,10 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:digits="123456789ABCDEF"
             android:ems="10"
             android:hint="@string/packet_content"
-            android:inputType="textNoSuggestions|number" />
+            android:inputType="number" />
 
     </LinearLayout>
 

@@ -101,6 +101,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
         try {
             inputThread = new InputThread(socket, this);
+            inputThread.start();
         } catch (IOException e) {
             showError("Could not create Input Thread", false);
         }
@@ -150,6 +151,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
         try {
             socket = device.createRfcommSocketToServiceRecord(MY_UUID);
+            socket.connect();
             outputStream = socket.getOutputStream();
         }
         catch (IOException e)
@@ -264,6 +266,8 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
                         final BluetoothPacket packet = BluetoothPacket.readPacket(stream);
 
                         if (packet == null) continue;
+
+
 
                         runOnUiThread(new Runnable() {
                             @Override
