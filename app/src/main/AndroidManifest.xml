@@ -18,9 +18,6 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
-            android:name=".DebugDeviceActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ControlDeviceActivity"
             android:label="@string/title_activity_control_device" />
         <activity
@@ -30,7 +27,7 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -76,4 +76,9 @@ public class TriggerFragment extends Fragment implements IControlFragment {
     public void handlePacket(BluetoothPacket packet) {
 
     }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
 }

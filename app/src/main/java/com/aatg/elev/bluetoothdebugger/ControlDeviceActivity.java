@@ -210,7 +210,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
         for (IControlFragment fragment :
                 controlViewFragment.controlFragments) {
-            if (fragment.getPacketId() == packet.id)
+            if (fragment.getPacketId() != null && fragment.getPacketId() == packet.id)
             {
                 fragment.handlePacket(packet);
             }
