@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.aatg.elev.bluetoothdebugger.dataconverters.TemperatureConverter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,10 @@ public class ControlViewFragment extends Fragment {
         clearFragments();
         addFragment(ToggleFragment.newInstance(4, 0, 1, "LED"));
         addFragment(RangeFragment.newInstance(5, 0, 180, "Servo"));
+
+        PlotFragment plot = PlotFragment.newInstance(6, 1000, 100, "Temperature");
+        plot.dataConverter = new TemperatureConverter(220, TemperatureConverter.P100_TABLE, -200);
+        addFragment(plot);
 
         updateFragments();
         return view;
