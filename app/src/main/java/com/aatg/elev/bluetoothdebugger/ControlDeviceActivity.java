@@ -1,6 +1,5 @@
 package com.aatg.elev.bluetoothdebugger;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -15,7 +14,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +38,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private FragmentManager fragmentManager;
 
-    ConnectAsyncTask task;
+    private ConnectAsyncTask connectAsyncTask;
 
     private InputThread inputThread;
     private OutputThread outputThread;
@@ -107,10 +105,10 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
         if (isFake()) return;
 
-        if (task.getStatus() != AsyncTask.Status.FINISHED)
+        if (connectAsyncTask.getStatus() != AsyncTask.Status.FINISHED)
         {
-            task.cancel(true);
-            task = null;
+            connectAsyncTask.cancel(true);
+            connectAsyncTask = null;
         }
 
         inputThread.stopThread();
@@ -157,8 +155,8 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
     {
         if (isFake()) return;
 
-        task = new ConnectAsyncTask(this);
-        task.execute(device);
+        connectAsyncTask = new ConnectAsyncTask(this);
+        connectAsyncTask.execute(device);
 
         connectionStatusSnackbar = Snackbar.make(findViewById(R.id.master_layout), "Connecting...", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null);
