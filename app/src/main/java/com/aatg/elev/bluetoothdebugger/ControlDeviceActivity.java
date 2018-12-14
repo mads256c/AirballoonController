@@ -50,7 +50,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private boolean ignoreErrors = false;
 
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID BLUETOOTH_SERIAL_COMMUNICATION_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -167,7 +167,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         if (isFake()) return;
 
         try {
-            socket = device.createRfcommSocketToServiceRecord(MY_UUID);
+            socket = device.createRfcommSocketToServiceRecord(BLUETOOTH_SERIAL_COMMUNICATION_UUID);
             socket.connect();
         }
         catch (IOException e)

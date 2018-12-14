@@ -64,7 +64,6 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
         savedInstanceState.putParcelableArrayList(SAVEDSTATE_ITEMS, items);
-        // etc.
     }
 
     @Override
@@ -94,8 +93,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             }
             else
             {
-                Toast toast = Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_LONG).show();
 
                 items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
                 items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
@@ -106,8 +104,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         }
         else
         {
-            Toast toast = Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG).show();
 
             items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
             items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
