@@ -1,16 +1,12 @@
 package com.aatg.elev.bluetoothdebugger;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -20,12 +16,13 @@ import android.widget.Toast;
 import com.aatg.elev.bluetoothdebugger.dummy.DeviceItem;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
 
-    public static final String EXTRA_MESSAGE = "com.aatg.elev.bluetoothdebugger.MESSAGE";
+    public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.bluetoothdebugger.INTENT_MESSAGE_DEVICE";
+
+    private static final String SAVEDSTATE_ITEMS = "SAVEDSTATE_ITEMS";
 
     private ItemFragment itemFragment;
 
@@ -55,7 +52,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
         if (savedInstanceState == null)
             refreshBluetoothDevices();
-        else items = savedInstanceState.getParcelableArrayList("Items");
+        else items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
 
         itemFragment.updateView(items);
     }
@@ -66,7 +63,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
-        savedInstanceState.putParcelableArrayList("Items", items);
+        savedInstanceState.putParcelableArrayList(SAVEDSTATE_ITEMS, items);
         // etc.
     }
 
@@ -75,7 +72,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         super.onRestoreInstanceState(savedInstanceState);
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
-        items = savedInstanceState.getParcelableArrayList("Items");
+        items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
     }
 
     private void refreshBluetoothDevices(){
@@ -157,7 +154,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
 
         Intent intent = new Intent(this, ControlDeviceActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, item.device);
+        intent.putExtra(INTENT_MESSAGE_DEVICE, item.device);
 
         startActivity(intent);
     }

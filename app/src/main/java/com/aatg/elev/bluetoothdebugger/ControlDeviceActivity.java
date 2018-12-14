@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static com.aatg.elev.bluetoothdebugger.SelectDeviceActivity.EXTRA_MESSAGE;
+import static com.aatg.elev.bluetoothdebugger.SelectDeviceActivity.INTENT_MESSAGE_DEVICE;
 
 public class ControlDeviceActivity extends AppCompatActivity implements IBluetoothController, IPacketHandler {
 
@@ -92,7 +92,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         fragmentManager.beginTransaction().add(masterLayout.getId(), controlViewFragment).commit();
 
         Intent intent = getIntent();
-        device = intent.getParcelableExtra(EXTRA_MESSAGE);
+        device = intent.getParcelableExtra(INTENT_MESSAGE_DEVICE);
 
         activity = this;
 
