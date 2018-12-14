@@ -96,19 +96,25 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
         items = new ArrayList<>();
 
+        //Get the devices bluetooth adapter
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        //If the bluetooth adapter is null the device does not have bluetooth eg. the emulator.
         if (mBluetoothAdapter != null)
         {
+            //Check if the bluetooth is enabled
             if (mBluetoothAdapter.isEnabled())
             {
+                //Get all paired bluetooth devices
                 Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
+                //Add bluetooth devices to items.
                 for(BluetoothDevice bt : pairedDevices)
                 {
                     items.add(new DeviceItem(bt.getName(), bt.getAddress(), bt));
                 }
             }
+            //If the bluetooth is not enabled create fake devices.
             else
             {
                 Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_LONG).show();
@@ -120,6 +126,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
                 items.add(new DeviceItem("Enabled", "AA:BB:CC:DD:EE:FF", null));
             }
         }
+        //If the bluetooth does not exist create fake devices.
         else
         {
             Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG).show();
@@ -131,6 +138,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         }
     }
 
+    //TODO: Implement settings menu or remove this
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -138,6 +146,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         return true;
     }
 
+    //TODO: Implement settings menu or remove this
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -154,9 +163,9 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         return super.onOptionsItemSelected(item);
     }
 
+    //Called when a bluetooth device is pressed
     @Override
     public void onListFragmentInteraction(DeviceItem item) {
-
 
         if (item.device == null)
         {
@@ -167,9 +176,9 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             Toast.makeText(this, item.device.toString(), Toast.LENGTH_SHORT).show();
         }
 
-
+        //Start ControlDeviceActivity
         Intent intent = new Intent(this, ControlDeviceActivity.class);
-        intent.putExtra(INTENT_MESSAGE_DEVICE, item.device);
+        intent.putExtra(INTENT_MESSAGE_DEVICE, item.device); //Put the device in the intent extra data
 
         startActivity(intent);
     }
