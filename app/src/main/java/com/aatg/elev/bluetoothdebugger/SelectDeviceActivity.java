@@ -20,12 +20,18 @@ import java.util.Set;
 
 public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
 
+    //To send the bluetooth device to ControlDeviceActivity we need extra intent data. We basically tie the data to this string and send it.
     public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.bluetoothdebugger.INTENT_MESSAGE_DEVICE";
 
+    //onCreate gets called every time a layout change happens (mostly).
+    //We don't want to get all our bluetooth devices every time. So we save them in a bundle.
+    //This string is used to save and get the bluetooth devices from the bundle.
     private static final String SAVEDSTATE_ITEMS = "SAVEDSTATE_ITEMS";
 
+    //Is responsible for creating the list of bluetooth devices.
     private ItemFragment itemFragment;
 
+    //Holds our bluetooth devices.
     private ArrayList<DeviceItem> items;
 
 
@@ -36,8 +42,10 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Get our ItemFragment from the XML.
         itemFragment = (ItemFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
+        //Get refresh devices fab from XML and set its onClickListener.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,10 +58,15 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             }
         });
 
+        //If savedInstanceState is null we are creating a fresh Activity,
+        //and we need to get the bluetooth devices.
         if (savedInstanceState == null)
             refreshBluetoothDevices();
-        else items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
+        //Else get items from the bundle.
+        else
+            items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
 
+        //Update the ItemFragment using the data.
         itemFragment.updateView(items);
     }
 
@@ -63,6 +76,8 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
+
+        //Save our bluetooth devices.
         savedInstanceState.putParcelableArrayList(SAVEDSTATE_ITEMS, items);
     }
 
@@ -71,9 +86,12 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         super.onRestoreInstanceState(savedInstanceState);
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
+
+        //Restore our bluetooth devices.
         items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
     }
 
+    //Refreshes the bluetooth devices.
     private void refreshBluetoothDevices(){
 
         items = new ArrayList<>();
