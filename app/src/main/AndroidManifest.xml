@@ -10,22 +10,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:resizeableActivity="true">
         <activity
             android:name=".SelectDeviceActivity"
             android:label="@string/title_activity_select_device"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:stateNotNeeded="true">
         </activity>
         <activity
             android:name=".ControlDeviceActivity"
-            android:label="@string/title_activity_control_device" />
+            android:label="@string/title_activity_control_device"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

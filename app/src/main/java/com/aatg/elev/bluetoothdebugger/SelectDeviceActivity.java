@@ -29,6 +29,8 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
     private ItemFragment itemFragment;
 
+    private ArrayList<DeviceItem> items;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +49,38 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
                         .setAction("Action", null).show();
 
                 refreshBluetoothDevices();
+                itemFragment.updateView(items);
             }
         });
 
-        refreshBluetoothDevices();
+        if (savedInstanceState == null)
+            refreshBluetoothDevices();
+        else items = savedInstanceState.getParcelableArrayList("Items");
 
+        itemFragment.updateView(items);
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putParcelableArrayList("Items", items);
+        // etc.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        items = savedInstanceState.getParcelableArrayList("Items");
     }
 
     private void refreshBluetoothDevices(){
-        List<DeviceItem> items = new ArrayList<DeviceItem>();
+
+        items = new ArrayList<>();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -93,8 +117,6 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
             items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
         }
-
-        itemFragment.updateView(items);
     }
 
     @Override
