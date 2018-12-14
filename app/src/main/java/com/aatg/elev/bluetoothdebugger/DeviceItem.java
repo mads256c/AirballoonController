@@ -1,31 +1,30 @@
-package com.aatg.elev.bluetoothdebugger.dummy;
+package com.aatg.elev.bluetoothdebugger;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class DeviceItem implements Parcelable {
+//Used to display bluetooth devices in ItemFragment
+public final class DeviceItem implements Parcelable {
     public final String name;
     public final String mac;
     public final BluetoothDevice device;
 
+    //Creates a new DeviceItem
     public DeviceItem(String name, String mac, BluetoothDevice device) {
         this.name = name;
         this.mac = mac;
         this.device = device;
     }
 
-    protected DeviceItem(Parcel in) {
+    //Used to create a DeviceItem from parcel.
+    private DeviceItem(Parcel in) {
         name = in.readString();
         mac = in.readString();
         device = in.readParcelable(BluetoothDevice.class.getClassLoader());
     }
 
+    //Creates DeviceItem from parcel.
     public static final Creator<DeviceItem> CREATOR = new Creator<DeviceItem>() {
         @Override
         public DeviceItem createFromParcel(Parcel in) {
@@ -45,9 +44,10 @@ public class DeviceItem implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 0;
+        return 0; //Not used.
     }
 
+    //Writes the DeviceItem as simple data.
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);

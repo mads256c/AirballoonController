@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aatg.elev.bluetoothdebugger.ItemFragment.OnListFragmentInteractionListener;
-import com.aatg.elev.bluetoothdebugger.dummy.DeviceItem;
 
 import java.util.List;
 

@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.aatg.elev.bluetoothdebugger.dummy.DeviceItem;
-
 import java.util.ArrayList;
 import java.util.Set;
 

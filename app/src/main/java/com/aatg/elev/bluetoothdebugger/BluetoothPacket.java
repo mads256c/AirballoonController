@@ -1,11 +1,10 @@
 package com.aatg.elev.bluetoothdebugger;
 
-import android.icu.util.Output;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+//Holds all the bluetooth packet stuff.
 public final class BluetoothPacket {
     public static int packetLength = 9;
 
@@ -48,7 +47,7 @@ public final class BluetoothPacket {
             this.data |= (long)bytes[i];
         }
     }
-
+    //Gets data as a byte array
     public byte[] getDataBytes(){
 
         byte[] bytes = new byte[8];
@@ -65,6 +64,7 @@ public final class BluetoothPacket {
         return bytes;
     }
 
+    //Gets the whole packet as byte array
     public byte[] getPacketBytes(){
         byte[] bytes = new byte[9];
 
@@ -82,7 +82,8 @@ public final class BluetoothPacket {
         return bytes;
     }
 
-
+    //Sends the packet using an OutputStream.
+    //Returns false if it failed.
     public boolean sendPacket(OutputStream stream)
     {
         try {
@@ -102,6 +103,7 @@ public final class BluetoothPacket {
         return "ID: " + id + " Data: " + data;
     }
 
+    //Creates a BluetoothPacket from an InputStream
     public static BluetoothPacket readPacket(InputStream stream)
     {
         try {
@@ -125,9 +127,10 @@ public final class BluetoothPacket {
         }
     }
 
-    public static String ErrorIdToString(int id)
+    //Converts an error packet to a string.
+    public static String ErrorIdToString(long data)
     {
-        switch (id)
+        switch ((int)data)
         {
             case 0:
                 return "General failure";
