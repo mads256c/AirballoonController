@@ -81,7 +81,7 @@ public class DebugViewFragment extends Fragment implements IPacketHookListener {
 
         FloatingActionButton fab = view.findViewById(R.id.fab_send);
 
-        if (bluetoothController.getDevice() == null)
+        if (bluetoothController.isFake())
         {
             deviceTextView.setText("Fake device -  AA:BB:CC:DD:EE");
 
@@ -116,7 +116,7 @@ public class DebugViewFragment extends Fragment implements IPacketHookListener {
 
                     BluetoothPacket packet = new BluetoothPacket(Integer.parseInt(packetIdEditText.getText().toString(), 16), Long.parseLong(packetContentEditText.getText().toString()));
 
-                    packet.sendPacket(bluetoothController.getOutputStream());
+                    bluetoothController.sendPacket(packet);
                 }
                 else
                 {
@@ -128,7 +128,7 @@ public class DebugViewFragment extends Fragment implements IPacketHookListener {
             }
         });
 
-        deviceTextView.setText(bluetoothController.getDevice().getName() + " - " + bluetoothController.getDevice().getAddress());
+        deviceTextView.setText(bluetoothController.getDeviceName() + " - " + bluetoothController.getDeviceAdress());
 
         return view;
     }

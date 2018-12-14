@@ -41,7 +41,7 @@ public class TriggerFragment extends Fragment implements IControlFragment {
             @Override
             public void onClick(View v) {
                 if (bluetoothController != null) {
-                    packet.sendPacket(bluetoothController.getOutputStream());
+                    bluetoothController.sendPacket(packet);
                 }
             }
         });

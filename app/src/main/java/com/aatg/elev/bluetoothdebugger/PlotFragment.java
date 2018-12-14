@@ -12,6 +12,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.Random;
 
 
 /**
@@ -43,7 +44,7 @@ public class PlotFragment extends Fragment implements IControlFragment {
 
     private IBluetoothController bluetoothController;
 
-
+    private Random random = new Random();
 
     public PlotFragment() {
         // Required empty public constructor
@@ -90,7 +91,9 @@ public class PlotFragment extends Fragment implements IControlFragment {
             @Override
             public void run() {
 
-                sendPacket();
+                if (!bluetoothController.isFake()) sendPacket();
+
+                else handlePacket(new BluetoothPacket(id, random.nextInt(500)));
 
                 view.postDelayed(this, delay);
             }
@@ -155,6 +158,6 @@ public class PlotFragment extends Fragment implements IControlFragment {
     {
         BluetoothPacket packet = new BluetoothPacket(id, 1);
 
-        packet.sendPacket(bluetoothController.getOutputStream());
+        bluetoothController.sendPacket(packet);
     }
 }

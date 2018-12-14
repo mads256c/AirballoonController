@@ -105,13 +105,13 @@ public class ToggleFragment extends Fragment implements IControlFragment {
     private void sendOffPacket()
     {
         BluetoothPacket packet = new BluetoothPacket(id, offData);
-        packet.sendPacket(bluetoothController.getOutputStream());
+        bluetoothController.sendPacket(packet);
     }
 
     private void sendOnPacket()
     {
         BluetoothPacket packet = new BluetoothPacket(id, onData);
-        packet.sendPacket(bluetoothController.getOutputStream());
+        bluetoothController.sendPacket(packet);
     }
 
     @Override

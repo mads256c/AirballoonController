@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.aatg.elev.bluetoothdebugger.SelectDeviceActivity.EXTRA_MESSAGE;
 
@@ -29,7 +30,6 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private BluetoothDevice device;
     private BluetoothSocket socket;
-    private OutputStream outputStream;
 
     private LinearLayout masterLayout;
 
@@ -44,6 +44,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
     private FragmentManager fragmentManager;
 
     private InputThread inputThread;
+    private OutputThread outputThread;
 
     private List<IPacketHookListener> packetHookListeners = new ArrayList<>();
 
@@ -95,7 +96,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
         activity = this;
 
-        if (device == null) return;
+        if (isFake()) return;
 
         connect();
 
@@ -105,15 +106,23 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         } catch (IOException e) {
             showError("Could not create Input Thread", false);
         }
+
+        try {
+            outputThread = new OutputThread(socket);
+            outputThread.start();
+        } catch (IOException e) {
+            showError("Could not create Output Thread", false);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if (device == null) return;
+        if (isFake()) return;
 
-        inputThread.keepRunning = false;
+
+        inputThread.stopThread();
 
         try {
             inputThread.join();
@@ -121,8 +130,16 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
             e.printStackTrace();
         }
 
+
+        outputThread.stopThread();
+
         try {
-            outputStream.close();
+            outputThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
             socket.close();
         }
         catch (IOException e)
@@ -147,16 +164,15 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private void connect()
     {
-        if (device == null) return;
+        if (isFake()) return;
 
         try {
             socket = device.createRfcommSocketToServiceRecord(MY_UUID);
             socket.connect();
-            outputStream = socket.getOutputStream();
         }
         catch (IOException e)
         {
-            showError("Could not create socket or output stream.", false);
+            showError("Could not create socket.", false);
         }
     }
 
@@ -219,18 +235,23 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
     }
 
     @Override
-    public BluetoothDevice getDevice() {
-        return device;
+    public boolean isFake() {
+        return device == null;
     }
 
     @Override
-    public BluetoothSocket getSocket() {
-        return socket;
+    public String getDeviceName() {
+        return device.getName();
     }
 
     @Override
-    public OutputStream getOutputStream() {
-        return outputStream;
+    public String getDeviceAdress() {
+        return device.getAddress();
+    }
+
+    @Override
+    public void sendPacket(BluetoothPacket packet) {
+        if (!isFake()) outputThread.add(packet);
     }
 
     @Override
@@ -245,7 +266,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
 
     private class InputThread extends Thread
     {
-        volatile boolean keepRunning = true;
+        private volatile boolean keepRunning = true;
 
         private InputStream stream;
         private IPacketHandler packetHandler;
@@ -276,12 +297,19 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
                             }
                         });
                     }
-                } catch (IOException e) {
+                    else {
+                        sleep(1);
+                    }
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
             close();
+        }
+
+        void stopThread(){
+            keepRunning = false;
         }
 
         private void close(){
@@ -290,6 +318,58 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
             } catch (IOException ignored) { }
 
             packetHandler = null;
+        }
+    }
+
+    private class OutputThread extends Thread
+    {
+        private volatile boolean keepRunning = true;
+
+        private OutputStream stream;
+
+        private ConcurrentLinkedQueue<BluetoothPacket> bluetoothPackets;
+
+        OutputThread(BluetoothSocket socket) throws IOException
+        {
+            stream = socket.getOutputStream();
+            bluetoothPackets = new ConcurrentLinkedQueue<>();
+        }
+
+        @Override
+        public void run()
+        {
+            while (keepRunning)
+            {
+                if (!bluetoothPackets.isEmpty())
+                {
+                    BluetoothPacket packet = bluetoothPackets.poll();
+                    packet.sendPacket(stream);
+                }
+                else
+                {
+                    try {
+                        sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            close();
+        }
+
+        public void add(BluetoothPacket packet)
+        {
+            bluetoothPackets.add(packet);
+        }
+
+        public void stopThread(){
+            keepRunning = false;
+        }
+
+        private void close(){
+            try {
+                stream.close();
+            } catch (IOException ignored) { }
         }
     }
 }

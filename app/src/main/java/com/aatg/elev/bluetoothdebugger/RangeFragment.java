@@ -138,6 +138,6 @@ public class RangeFragment extends Fragment implements IControlFragment {
     private void sendPacket(long progress)
     {
         BluetoothPacket packet = new BluetoothPacket(id, progress);
-        packet.sendPacket(bluetoothController.getOutputStream());
+        bluetoothController.sendPacket(packet);
     }
 }
