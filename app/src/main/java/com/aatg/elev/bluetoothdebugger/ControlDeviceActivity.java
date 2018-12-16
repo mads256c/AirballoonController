@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static com.aatg.elev.bluetoothdebugger.selectdevice.SelectDeviceActivity.INTENT_MESSAGE_DEVICE;
+import static com.aatg.elev.bluetoothdebugger.selectpaireddevice.SelectPairedDeviceActivity.INTENT_MESSAGE_DEVICE;
 
 public class ControlDeviceActivity extends AppCompatActivity implements IBluetoothController, IPacketHandler {
 

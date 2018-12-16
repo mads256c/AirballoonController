@@ -1,39 +1,39 @@
-package com.aatg.elev.bluetoothdebugger.selectdevice;
+package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-//Used to display bluetooth devices in ItemFragment
-public final class DeviceItem implements Parcelable {
+//Used to display bluetooth devices in PairedDeviceItemListFragment
+public final class PairedDeviceItem implements Parcelable {
     public final String name;
     public final String mac;
     public final BluetoothDevice device;
 
-    //Creates a new DeviceItem
-    public DeviceItem(String name, String mac, BluetoothDevice device) {
+    //Creates a new PairedDeviceItem
+    public PairedDeviceItem(String name, String mac, BluetoothDevice device) {
         this.name = name;
         this.mac = mac;
         this.device = device;
     }
 
-    //Used to create a DeviceItem from parcel.
-    private DeviceItem(Parcel in) {
+    //Used to create a PairedDeviceItem from parcel.
+    private PairedDeviceItem(Parcel in) {
         name = in.readString();
         mac = in.readString();
         device = in.readParcelable(BluetoothDevice.class.getClassLoader());
     }
 
-    //Creates DeviceItem from parcel.
-    public static final Creator<DeviceItem> CREATOR = new Creator<DeviceItem>() {
+    //Creates PairedDeviceItem from parcel.
+    public static final Creator<PairedDeviceItem> CREATOR = new Creator<PairedDeviceItem>() {
         @Override
-        public DeviceItem createFromParcel(Parcel in) {
-            return new DeviceItem(in);
+        public PairedDeviceItem createFromParcel(Parcel in) {
+            return new PairedDeviceItem(in);
         }
 
         @Override
-        public DeviceItem[] newArray(int size) {
-            return new DeviceItem[size];
+        public PairedDeviceItem[] newArray(int size) {
+            return new PairedDeviceItem[size];
         }
     };
 
@@ -47,7 +47,7 @@ public final class DeviceItem implements Parcelable {
         return 0; //Not used.
     }
 
-    //Writes the DeviceItem as simple data.
+    //Writes the PairedDeviceItem as simple data.
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);

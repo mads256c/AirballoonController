@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.aatg.elev.bluetoothdebugger.selectdevice.SelectDeviceActivity;
+import com.aatg.elev.bluetoothdebugger.selectpaireddevice.SelectPairedDeviceActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private final Runnable changeActivityRunnable = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(getBaseContext(), SelectDeviceActivity.class);
+            Intent intent = new Intent(getBaseContext(), SelectPairedDeviceActivity.class);
             startActivity(intent);
         }
     };
@@ -46,7 +46,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         if (bar != null)
             bar.hide();
-        
+
         changeActivityHandler.postDelayed(changeActivityRunnable, 2000);
     }
 

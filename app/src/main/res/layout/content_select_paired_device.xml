@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".selectdevice.SelectDeviceActivity"
-    tools:showIn="@layout/activity_select_device">
+    tools:context=".selectpaireddevice.SelectPairedDeviceActivity"
+    tools:showIn="@layout/activity_select_paired_device">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
 
             <fragment
                 android:id="@+id/fragment"
-                android:name="com.aatg.elev.bluetoothdebugger.selectdevice.ItemFragment"
+                android:name="com.aatg.elev.bluetoothdebugger.selectpaireddevice.PairedDeviceItemListFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

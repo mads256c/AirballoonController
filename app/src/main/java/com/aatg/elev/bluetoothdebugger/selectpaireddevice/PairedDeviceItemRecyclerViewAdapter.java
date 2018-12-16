@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.selectdevice;
+package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,21 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aatg.elev.bluetoothdebugger.R;
-import com.aatg.elev.bluetoothdebugger.selectdevice.ItemFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DeviceItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ * {@link RecyclerView.Adapter} that can display a {@link PairedDeviceItem} and makes a call to the
+ * specified {@link PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener}.
  */
-public class DeviceItemRecyclerViewAdapter extends RecyclerView.Adapter<DeviceItemRecyclerViewAdapter.ViewHolder> {
+public final class PairedDeviceItemRecyclerViewAdapter extends RecyclerView.Adapter<PairedDeviceItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DeviceItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<PairedDeviceItem> mValues;
+    private final PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener mListener;
 
-    DeviceItemRecyclerViewAdapter(List<DeviceItem> items, OnListFragmentInteractionListener listener) {
+    PairedDeviceItemRecyclerViewAdapter(List<PairedDeviceItem> items, PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -45,7 +43,7 @@ public class DeviceItemRecyclerViewAdapter extends RecyclerView.Adapter<DeviceIt
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onPairedDeviceItemClicked(holder.mItem);
                 }
             }
         });
@@ -56,11 +54,11 @@ public class DeviceItemRecyclerViewAdapter extends RecyclerView.Adapter<DeviceIt
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public final class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DeviceItem mItem;
+        public PairedDeviceItem mItem;
 
         public ViewHolder(View view) {
             super(view);

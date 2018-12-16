@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.selectdevice;
+package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.aatg.elev.bluetoothdebugger.ControlDeviceActivity;
 import com.aatg.elev.bluetoothdebugger.R;
-import com.aatg.elev.bluetoothdebugger.selectdevice.DeviceItem;
-import com.aatg.elev.bluetoothdebugger.selectdevice.ItemFragment;
 
 import java.util.ArrayList;
 import java.util.Set;
 
-public class SelectDeviceActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
+public class SelectPairedDeviceActivity extends AppCompatActivity implements PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener {
 
     //To send the bluetooth device to ControlDeviceActivity we need extra intent data. We basically tie the data to this string and send it.
     public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.bluetoothdebugger.INTENT_MESSAGE_DEVICE";
@@ -32,21 +30,21 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
     private static final String SAVEDSTATE_ITEMS = "SAVEDSTATE_ITEMS";
 
     //Is responsible for creating the list of bluetooth devices.
-    private ItemFragment itemFragment;
+    private PairedDeviceItemListFragment pairedDeviceItemListFragment;
 
     //Holds our bluetooth devices.
-    private ArrayList<DeviceItem> items;
+    private ArrayList<PairedDeviceItem> items;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_device);
+        setContentView(R.layout.activity_select_paired_device);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Get our ItemFragment from the XML.
-        itemFragment = (ItemFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        //Get our PairedDeviceItemListFragment from the XML.
+        pairedDeviceItemListFragment = (PairedDeviceItemListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
         //Get refresh devices fab from XML and set its onClickListener.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -57,7 +55,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
                         .setAction("Action", null).show();
 
                 refreshBluetoothDevices();
-                itemFragment.updateView(items);
+                pairedDeviceItemListFragment.updateView(items);
             }
         });
 
@@ -69,8 +67,8 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         else
             items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
 
-        //Update the ItemFragment using the data.
-        itemFragment.updateView(items);
+        //Update the PairedDeviceItemListFragment using the data.
+        pairedDeviceItemListFragment.updateView(items);
     }
 
     @Override
@@ -114,7 +112,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
                 //Add bluetooth devices to items.
                 for(BluetoothDevice bt : pairedDevices)
                 {
-                    items.add(new DeviceItem(bt.getName(), bt.getAddress(), bt));
+                    items.add(new PairedDeviceItem(bt.getName(), bt.getAddress(), bt));
                 }
             }
             //If the bluetooth is not enabled create fake devices.
@@ -122,11 +120,11 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
             {
                 Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_LONG).show();
 
-                items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
-                items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
-                items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
-                items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
-                items.add(new DeviceItem("Enabled", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new PairedDeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new PairedDeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new PairedDeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new PairedDeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
+                items.add(new PairedDeviceItem("Enabled", "AA:BB:CC:DD:EE:FF", null));
             }
         }
         //If the bluetooth does not exist create fake devices.
@@ -134,10 +132,10 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
         {
             Toast.makeText(this, "You don't have a bluetooth module", Toast.LENGTH_LONG).show();
 
-            items.add(new DeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
-            items.add(new DeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
-            items.add(new DeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
-            items.add(new DeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new PairedDeviceItem("You", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new PairedDeviceItem("Don't", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new PairedDeviceItem("Have", "AA:BB:CC:DD:EE:FF", null));
+            items.add(new PairedDeviceItem("Bluetooth", "AA:BB:CC:DD:EE:FF", null));
         }
     }
 
@@ -168,7 +166,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements ItemFragm
 
     //Called when a bluetooth device is pressed
     @Override
-    public void onListFragmentInteraction(DeviceItem item) {
+    public void onPairedDeviceItemClicked(PairedDeviceItem item) {
 
         if (item.device == null)
         {
