@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.aatg.elev.bluetoothdebugger.dataconverters.TemperatureConverter;
+import com.aatg.elev.bluetoothdebugger.modules.PlotFragment;
+import com.aatg.elev.bluetoothdebugger.modules.RangeFragment;
+import com.aatg.elev.bluetoothdebugger.modules.ToggleFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.modules;
 
 
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aatg.elev.bluetoothdebugger.BluetoothPacket;
+import com.aatg.elev.bluetoothdebugger.IBluetoothController;
+import com.aatg.elev.bluetoothdebugger.IControlFragment;
+import com.aatg.elev.bluetoothdebugger.IDataConverter;
+import com.aatg.elev.bluetoothdebugger.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
