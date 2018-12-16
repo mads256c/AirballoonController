@@ -1,9 +1,6 @@
 package com.aatg.elev.bluetoothdebugger;
 
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-
-import java.io.OutputStream;
+import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 
 public interface IBluetoothController {
 

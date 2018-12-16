@@ -15,6 +15,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
+import com.aatg.elev.bluetoothdebugger.bluetooth.InputThread;
+import com.aatg.elev.bluetoothdebugger.bluetooth.OutputThread;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -197,28 +201,32 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
     }
 
     @Override
-    public void handlePacket(BluetoothPacket packet)
+    public void handlePacket(final BluetoothPacket packet)
     {
-        for (IPacketHookListener listener :
-                packetHookListeners) {
-            listener.getHookedPacket(packet);
-        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (IPacketHookListener listener :
+                        packetHookListeners) {
+                    listener.getHookedPacket(packet);
+                }
 
-        if (packet.id == 2){
+                if (packet.id == 2){
 
-            showError("Air balloon reported error: " + BluetoothPacket.ErrorIdToString((int)packet.data));
+                    showError("Air balloon reported error: " + BluetoothPacket.ErrorIdToString((int)packet.data));
 
-            return;
-        }
+                    return;
+                }
 
-        for (IControlFragment fragment :
-                controlViewFragment.controlFragments) {
-            if (fragment.getPacketId() != null && fragment.getPacketId() == packet.id)
-            {
-                fragment.handlePacket(packet);
+                for (IControlFragment fragment :
+                        controlViewFragment.controlFragments) {
+                    if (fragment.getPacketId() != null && fragment.getPacketId() == packet.id)
+                    {
+                        fragment.handlePacket(packet);
+                    }
+                }
             }
-        }
-
+        });
     }
 
     @Override
@@ -282,142 +290,37 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         @Override
         protected void onPostExecute(BluetoothSocket bluetoothSocket)
         {
-            if (weakReference.get() == null || weakReference.get().isFinishing()) return;
+            ControlDeviceActivity activity = weakReference.get();
+
+            if (activity == null || activity.isFinishing()) return;
 
             if (bluetoothSocket == null)
             {
-                weakReference.get().showError("Could not create socket", false);
+                activity.showError("Could not create socket", false);
                 return;
             }
 
-            weakReference.get().socket = bluetoothSocket;
+            activity.socket = bluetoothSocket;
             try {
-                weakReference.get().inputThread.stream = weakReference.get().socket.getInputStream();
+                activity.inputThread.setStream(activity.socket.getInputStream());
             } catch (IOException e) {
-                weakReference.get().showError("Could not get input stream", false);
+                activity.showError("Could not get input stream", false);
             }
-            weakReference.get().inputThread.start();
+            activity.inputThread.start();
             try {
-                weakReference.get().outputThread.stream = weakReference.get().socket.getOutputStream();
+                activity.outputThread.setStream(activity.socket.getOutputStream());
             } catch (IOException e) {
-                weakReference.get().showError("Could not get output stream", false);
+                activity.showError("Could not get output stream", false);
             }
-            weakReference.get().outputThread.start();
+            activity.outputThread.start();
 
-            weakReference.get().connectionStatusSnackbar.dismiss();
+            activity.connectionStatusSnackbar.dismiss();
 
-            Snackbar snackbar = Snackbar.make(weakReference.get().findViewById(R.id.master_layout), "Connected", Snackbar.LENGTH_LONG)
+            Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.master_layout), "Connected", Snackbar.LENGTH_LONG)
                     .setAction("Action", null);
             snackbar.show();
 
-            weakReference.get().connectionStatusSnackbar = snackbar;
-        }
-    }
-
-    private class InputThread extends Thread
-    {
-        private volatile boolean keepRunning = true;
-
-        InputStream stream;
-        private IPacketHandler packetHandler;
-
-        InputThread(IPacketHandler packetHandler) {
-            this.packetHandler = packetHandler;
-        }
-
-        @Override
-        public void run(){
-            Looper.prepare();
-
-            while (keepRunning)
-            {
-                try {
-                    if(stream.available() >= BluetoothPacket.packetLength){
-                        final BluetoothPacket packet = BluetoothPacket.readPacket(stream);
-
-                        if (packet == null) continue;
-
-
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                packetHandler.handlePacket(packet);
-                            }
-                        });
-                    }
-                    else {
-                        sleep(1);
-                    }
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            close();
-        }
-
-        void stopThread(){
-            keepRunning = false;
-        }
-
-        private void close(){
-            try {
-                stream.close();
-            } catch (IOException ignored) { }
-
-            packetHandler = null;
-        }
-    }
-
-    private class OutputThread extends Thread
-    {
-        private volatile boolean keepRunning = true;
-
-        OutputStream stream;
-
-        private ConcurrentLinkedQueue<BluetoothPacket> bluetoothPackets;
-
-        OutputThread()
-        {
-            bluetoothPackets = new ConcurrentLinkedQueue<>();
-        }
-
-        @Override
-        public void run()
-        {
-            while (keepRunning)
-            {
-                if (!bluetoothPackets.isEmpty())
-                {
-                    BluetoothPacket packet = bluetoothPackets.poll();
-                    packet.sendPacket(stream);
-                }
-                else
-                {
-                    try {
-                        sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            close();
-        }
-
-        public void add(BluetoothPacket packet)
-        {
-            bluetoothPackets.add(packet);
-        }
-
-        void stopThread(){
-            keepRunning = false;
-        }
-
-        private void close(){
-            try {
-                stream.close();
-            } catch (IOException ignored) { }
+            activity.connectionStatusSnackbar = snackbar;
         }
     }
 }

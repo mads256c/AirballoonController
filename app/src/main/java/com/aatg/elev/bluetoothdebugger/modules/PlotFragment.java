@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aatg.elev.bluetoothdebugger.BluetoothPacket;
+import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 import com.aatg.elev.bluetoothdebugger.IBluetoothController;
 import com.aatg.elev.bluetoothdebugger.IControlFragment;
 import com.aatg.elev.bluetoothdebugger.IDataConverter;

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
+
 
 /**
  * A simple {@link Fragment} subclass.
