@@ -2,7 +2,10 @@ package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +22,7 @@ import com.aatg.elev.bluetoothdebugger.R;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class SelectPairedDeviceActivity extends AppCompatActivity implements PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener {
+public final class SelectPairedDeviceActivity extends AppCompatActivity implements PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener {
 
     //To send the bluetooth device to ControlDeviceActivity we need extra intent data. We basically tie the data to this string and send it.
     public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.bluetoothdebugger.INTENT_MESSAGE_DEVICE";
@@ -36,6 +39,22 @@ public class SelectPairedDeviceActivity extends AppCompatActivity implements Pai
     private ArrayList<PairedDeviceItem> items;
 
 
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getAction();
+
+            // It means the user has changed his bluetooth state.
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+
+                refreshBluetoothDevices();
+                pairedDeviceItemListFragment.updateView(items);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +64,8 @@ public class SelectPairedDeviceActivity extends AppCompatActivity implements Pai
 
         //Get our PairedDeviceItemListFragment from the XML.
         pairedDeviceItemListFragment = (PairedDeviceItemListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+
+
 
         //Get refresh devices fab from XML and set its onClickListener.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -69,6 +90,8 @@ public class SelectPairedDeviceActivity extends AppCompatActivity implements Pai
 
         //Update the PairedDeviceItemListFragment using the data.
         pairedDeviceItemListFragment.updateView(items);
+
+        this.registerReceiver(broadcastReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
     }
 
     @Override
@@ -91,6 +114,7 @@ public class SelectPairedDeviceActivity extends AppCompatActivity implements Pai
         //Restore our bluetooth devices.
         items = savedInstanceState.getParcelableArrayList(SAVEDSTATE_ITEMS);
     }
+
 
     //Refreshes the bluetooth devices.
     private void refreshBluetoothDevices(){
@@ -171,10 +195,6 @@ public class SelectPairedDeviceActivity extends AppCompatActivity implements Pai
         if (item.device == null)
         {
             Toast.makeText(this, "This is a null device", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(this, item.device.toString(), Toast.LENGTH_SHORT).show();
         }
 
         //Start ControlDeviceActivity
