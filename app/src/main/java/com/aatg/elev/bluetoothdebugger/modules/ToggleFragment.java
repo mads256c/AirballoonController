@@ -11,7 +11,6 @@ import android.widget.Switch;
 
 import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 import com.aatg.elev.bluetoothdebugger.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.IControlFragment;
 import com.aatg.elev.bluetoothdebugger.R;
 
 
@@ -20,7 +19,7 @@ import com.aatg.elev.bluetoothdebugger.R;
  * Use the {@link ToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToggleFragment extends Fragment implements IControlFragment {
+public class ToggleFragment extends Fragment implements IModuleFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ID = "arg_id";

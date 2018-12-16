@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,15 +17,13 @@ import android.view.MenuItem;
 import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 import com.aatg.elev.bluetoothdebugger.bluetooth.InputThread;
 import com.aatg.elev.bluetoothdebugger.bluetooth.OutputThread;
+import com.aatg.elev.bluetoothdebugger.modules.IModuleFragment;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.aatg.elev.bluetoothdebugger.selectpaireddevice.SelectPairedDeviceActivity.INTENT_MESSAGE_DEVICE;
 
@@ -218,7 +215,7 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
                     return;
                 }
 
-                for (IControlFragment fragment :
+                for (IModuleFragment fragment :
                         controlViewFragment.controlFragments) {
                     if (fragment.getPacketId() != null && fragment.getPacketId() == packet.id)
                     {

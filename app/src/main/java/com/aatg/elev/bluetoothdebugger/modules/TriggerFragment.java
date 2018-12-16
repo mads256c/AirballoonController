@@ -10,11 +10,10 @@ import android.widget.Button;
 
 import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 import com.aatg.elev.bluetoothdebugger.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.IControlFragment;
 import com.aatg.elev.bluetoothdebugger.R;
 
 
-public class TriggerFragment extends Fragment implements IControlFragment {
+public class TriggerFragment extends Fragment implements IModuleFragment {
     private static BluetoothPacket packet = new BluetoothPacket(4, 100);
 
     private Button button;

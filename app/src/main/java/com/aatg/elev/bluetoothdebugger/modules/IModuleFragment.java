@@ -1,10 +1,10 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.modules;
 
 import android.support.v4.app.Fragment;
 
 import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 
-public interface IControlFragment {
+public interface IModuleFragment {
 
     public Integer getPacketId();
 

@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
 import com.aatg.elev.bluetoothdebugger.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.IControlFragment;
-import com.aatg.elev.bluetoothdebugger.IDataConverter;
+import com.aatg.elev.bluetoothdebugger.dataconverters.BaseDataConverter;
 import com.aatg.elev.bluetoothdebugger.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -25,7 +24,7 @@ import java.util.Random;
  * Use the {@link PlotFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlotFragment extends Fragment implements IControlFragment {
+public class PlotFragment extends Fragment implements IModuleFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ID = "arg_id";
@@ -33,7 +32,7 @@ public class PlotFragment extends Fragment implements IControlFragment {
     private static final String ARG_MAXPOINTS = "arg_maxpoints";
     private static final String ARG_LABEL = "arg_label";
 
-    public IDataConverter dataConverter;
+    public BaseDataConverter dataConverter;
 
     // TODO: Rename and change types of parameters
     private int id;
@@ -41,7 +40,9 @@ public class PlotFragment extends Fragment implements IControlFragment {
     private int maxpoints;
     private String label;
 
-    private long current = 0;
+    private long current = delay;
+    private double minY = 0.0;
+    private double maxY = 0.0;
 
     private GraphView graph;
     private LineGraphSeries<DataPoint> series;
@@ -86,8 +87,11 @@ public class PlotFragment extends Fragment implements IControlFragment {
         final View view = inflater.inflate(R.layout.fragment_plot, container, false);
 
         graph = (GraphView) view.findViewById(R.id.graph);
-        graph.setTitle(label);
+        //graph.setTitle(label);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Seconds");
+        graph.getGridLabelRenderer().setVerticalAxisTitle(label);
         graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setYAxisBoundsManual(true);
 
 
         series = new LineGraphSeries<>();
@@ -97,6 +101,7 @@ public class PlotFragment extends Fragment implements IControlFragment {
             @Override
             public void run() {
 
+                //If bluetoothController is null we are detaching and so we need to cleanup and stop the loop
                 if (bluetoothController == null) return;
 
                 if (!bluetoothController.isFake()) sendPacket();
@@ -144,15 +149,21 @@ public class PlotFragment extends Fragment implements IControlFragment {
         if (dataConverter != null)
             data = dataConverter.getData(packet.data);
 
-        series.appendData(new DataPoint(current, data.doubleValue()), true, maxpoints);
-        graph.removeSeries(series);
-        graph.addSeries(series);
+        if (data.doubleValue() < minY)
+            minY = data.doubleValue();
 
-        graph.getViewport().setMinX(current - maxpoints);
-        graph.getViewport().setMaxX(current);
+        if (data.doubleValue() > maxY)
+            maxY = data.doubleValue();
+
+        series.appendData(new DataPoint((double)current / 1000.0, data.doubleValue()), false, maxpoints);
+
+        graph.getViewport().setMinX(((double)current - ((double)maxpoints * delay)) / 1000.0);
+        graph.getViewport().setMaxX((double)current / 1000.0);
+        graph.getViewport().setMinY(minY);
+        graph.getViewport().setMaxY(maxY);
 
 
-        current++;
+        current += delay;
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.aatg.elev.bluetoothdebugger.dataconverters.TemperatureConverter;
+import com.aatg.elev.bluetoothdebugger.modules.IModuleFragment;
 import com.aatg.elev.bluetoothdebugger.modules.PlotFragment;
 import com.aatg.elev.bluetoothdebugger.modules.RangeFragment;
 import com.aatg.elev.bluetoothdebugger.modules.ToggleFragment;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class ControlViewFragment extends Fragment {
 
-    public List<IControlFragment> controlFragments = new ArrayList<>();
+    public List<IModuleFragment> controlFragments = new ArrayList<>();
 
     private LinearLayout layoutControl;
     private FragmentManager fragmentManager;
@@ -34,12 +35,12 @@ public class ControlViewFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void addFragment(IControlFragment controlFragment)
+    public void addFragment(IModuleFragment controlFragment)
     {
         controlFragments.add(controlFragment);
     }
 
-    public void removeFragment(IControlFragment controlFragment)
+    public void removeFragment(IModuleFragment controlFragment)
     {
         controlFragments.remove(controlFragment);
     }
@@ -59,7 +60,7 @@ public class ControlViewFragment extends Fragment {
             }
         }
 
-        for (IControlFragment controlFragment :
+        for (IModuleFragment controlFragment :
                 controlFragments) {
             transaction.add(layoutControl.getId(), controlFragment.getFragment());
             transaction.add(layoutControl.getId(), new SpacerFragment());
@@ -81,8 +82,8 @@ public class ControlViewFragment extends Fragment {
         addFragment(ToggleFragment.newInstance(4, 0, 1, "LED"));
         addFragment(RangeFragment.newInstance(5, 0, 180, "Servo"));
 
-        PlotFragment plot = PlotFragment.newInstance(6, 1000, 100, "Temperature");
-        plot.dataConverter = new TemperatureConverter(220, TemperatureConverter.P100_TABLE, -200);
+        PlotFragment plot = PlotFragment.newInstance(6, 100, 100, "Temperature");
+        plot.dataConverter = new TemperatureConverter(220, TemperatureConverter.P100_TABLE, TemperatureConverter.P100_START, TemperatureConverter.TemperatureUnit.Celsius);
         addFragment(plot);
 
         updateFragments();
