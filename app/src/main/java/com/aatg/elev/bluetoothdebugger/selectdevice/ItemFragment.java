@@ -24,10 +24,6 @@ import java.util.List;
  */
 public class ItemFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
@@ -39,23 +35,9 @@ public class ItemFragment extends Fragment {
     public ItemFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -67,11 +49,8 @@ public class ItemFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
             updateView(new ArrayList<DeviceItem>());
         }
         return view;
@@ -79,7 +58,7 @@ public class ItemFragment extends Fragment {
 
     public void updateView(List<DeviceItem> deviceItems)
     {
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(deviceItems, mListener));
+        recyclerView.setAdapter(new DeviceItemRecyclerViewAdapter(deviceItems, mListener));
     }
 
 

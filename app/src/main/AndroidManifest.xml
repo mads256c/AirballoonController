@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aatg.elev.bluetoothdebugger">
+    package="com.aatg.elev.bluetoothdebugger"
+    android:installLocation="preferExternal">
 
+    <uses-feature android:name="android.hardware.bluetooth"
+        android:required="true" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
@@ -17,8 +20,7 @@
             android:label="@string/title_activity_select_device"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"
-            android:stateNotNeeded="true">
-        </activity>
+            android:stateNotNeeded="true"/>
         <activity
             android:name=".ControlDeviceActivity"
             android:label="@string/title_activity_control_device"

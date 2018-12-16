@@ -15,12 +15,11 @@ import com.aatg.elev.bluetoothdebugger.selectdevice.SelectDeviceActivity;
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private final Handler mHideHandler = new Handler();
-    private final Runnable mHideRunnable = new Runnable() {
+    private final Handler changeActivityHandler = new Handler();
+    private final Runnable changeActivityRunnable = new Runnable() {
         @Override
         public void run() {
             Intent intent = new Intent(getBaseContext(), SelectDeviceActivity.class);
-
             startActivity(intent);
         }
     };
@@ -28,14 +27,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_splash_screen);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        ActionBar bar = getSupportActionBar();
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -45,21 +36,18 @@ public class SplashScreenActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        setContentView(R.layout.activity_splash_screen);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        ActionBar bar = getSupportActionBar();
+
         if (bar != null)
             bar.hide();
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(2000);
+        
+        changeActivityHandler.postDelayed(changeActivityRunnable, 2000);
     }
 
-
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
 }
