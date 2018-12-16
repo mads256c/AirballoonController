@@ -130,7 +130,8 @@ public class ControlDeviceActivity extends AppCompatActivity implements IBluetoo
         }
 
         try {
-            socket.close();
+            if (socket != null)
+                socket.close();
         }
         catch (IOException e)
         {
