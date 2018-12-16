@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:resizeableActivity="true">
         <activity
-            android:name=".SelectDeviceActivity"
+            android:name=".selectdevice.SelectDeviceActivity"
             android:label="@string/title_activity_select_device"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"

@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.selectdevice;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import com.aatg.elev.bluetoothdebugger.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.selectdevice;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.aatg.elev.bluetoothdebugger.ItemFragment.OnListFragmentInteractionListener;
+import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.bluetoothdebugger.selectdevice.ItemFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 

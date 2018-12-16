@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.selectdevice;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,6 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.aatg.elev.bluetoothdebugger.ControlDeviceActivity;
+import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.bluetoothdebugger.selectdevice.DeviceItem;
+import com.aatg.elev.bluetoothdebugger.selectdevice.ItemFragment;
 
 import java.util.ArrayList;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.bluetoothdebugger.selectdevice;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
