@@ -57,8 +57,6 @@ task makeJar(type: Copy) {
 makeJar.dependsOn(clearJar, build)
 
 
-apply from: './maven_push.gradle'
-
 repositories {
     google()
 }
