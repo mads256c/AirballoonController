@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.aatg.elev.bluetoothdebugger.dataconverters.TemperatureConverter;
+import com.aatg.elev.bluetoothdebugger.dataconverters.UltraSonicDistanceConverter;
 import com.aatg.elev.bluetoothdebugger.modules.IModuleFragment;
 import com.aatg.elev.bluetoothdebugger.modules.PlotFragment;
+import com.aatg.elev.bluetoothdebugger.modules.PrintStatisticsFragment;
+import com.aatg.elev.bluetoothdebugger.modules.PrintValueFragment;
 import com.aatg.elev.bluetoothdebugger.modules.RangeFragment;
 import com.aatg.elev.bluetoothdebugger.modules.ToggleFragment;
 
@@ -82,9 +85,18 @@ public class ControlViewFragment extends Fragment {
         addFragment(ToggleFragment.newInstance(4, 0, 1, "LED"));
         addFragment(RangeFragment.newInstance(5, 0, 180, "Servo"));
 
-        PlotFragment plot = PlotFragment.newInstance(6, 100, 100, "Temperature");
-        plot.dataConverter = new TemperatureConverter(220, TemperatureConverter.P100_TABLE, TemperatureConverter.P100_START, TemperatureConverter.TemperatureUnit.Celsius);
+        //PrintValueFragment printValueFragment = PrintValueFragment.newInstance(6, 100, "Temperature (C)");
+        //printValueFragment.dataConverter = new TemperatureConverter(217, TemperatureConverter.P100_TABLE, TemperatureConverter.P100_START, TemperatureConverter.TemperatureUnit.Celsius);
+        //addFragment(printValueFragment);
+
+        PrintStatisticsFragment printStatisticsFragment = PrintStatisticsFragment.newInstance(6, 100, "Temperature (C)");
+        printStatisticsFragment.dataConverter = new TemperatureConverter(217, TemperatureConverter.P100_TABLE, TemperatureConverter.P100_START, TemperatureConverter.TemperatureUnit.Celsius);
+        addFragment(printStatisticsFragment);
+
+        PlotFragment plot = PlotFragment.newInstance(7, 1000, 100, "Distance (M)");
+        plot.dataConverter = new UltraSonicDistanceConverter(UltraSonicDistanceConverter.DistanceUnit.Meters);
         addFragment(plot);
+
 
         updateFragments();
         return view;
