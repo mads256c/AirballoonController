@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 import com.aatg.elev.airballooncontroller.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 
 
 public class TriggerFragment extends Fragment implements IModuleFragment {

@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 import com.aatg.elev.airballooncontroller.bluetooth.InputThread;
 import com.aatg.elev.airballooncontroller.bluetooth.OutputThread;

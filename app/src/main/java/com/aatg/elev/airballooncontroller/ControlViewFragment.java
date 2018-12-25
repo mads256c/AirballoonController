@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.aatg.elev.airballooncontroller.modules.PlotFragment;
 import com.aatg.elev.airballooncontroller.modules.RangeFragment;
 import com.aatg.elev.airballooncontroller.modules.ToggleFragment;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 import com.aatg.elev.airballooncontroller.dataconverters.TemperatureConverter;
 import com.aatg.elev.airballooncontroller.dataconverters.UltraSonicDistanceConverter;
 import com.aatg.elev.airballooncontroller.modules.IModuleFragment;

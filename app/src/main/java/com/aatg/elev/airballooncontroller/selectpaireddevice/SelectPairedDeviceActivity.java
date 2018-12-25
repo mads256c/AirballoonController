@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.aatg.elev.airballooncontroller.ControlDeviceActivity;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 
 import java.util.ArrayList;
 import java.util.Set;

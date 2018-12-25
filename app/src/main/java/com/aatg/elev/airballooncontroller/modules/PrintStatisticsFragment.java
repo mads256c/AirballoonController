@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.aatg.elev.airballooncontroller.dataconverters.BaseDataConverter;
 import com.aatg.elev.airballooncontroller.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 
 import java.text.NumberFormat;

@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.aatg.elev.airballooncontroller.selectpaireddevice.SelectPairedDeviceActivity;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

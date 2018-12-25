@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 import com.aatg.elev.airballooncontroller.IBluetoothController;
 import com.aatg.elev.airballooncontroller.dataconverters.BaseDataConverter;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;

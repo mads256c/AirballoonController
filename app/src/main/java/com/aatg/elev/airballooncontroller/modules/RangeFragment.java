@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 import com.aatg.elev.airballooncontroller.IBluetoothController;
-import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.R;
 
 
 /**
