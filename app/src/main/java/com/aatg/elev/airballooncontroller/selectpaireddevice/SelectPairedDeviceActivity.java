@@ -25,7 +25,7 @@ import java.util.Set;
 public final class SelectPairedDeviceActivity extends AppCompatActivity implements PairedDeviceItemListFragment.OnPairedDeviceItemClickedListener {
 
     //To send the bluetooth device to ControlDeviceActivity we need extra intent data. We basically tie the data to this string and send it.
-    public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.bluetoothdebugger.INTENT_MESSAGE_DEVICE";
+    public static final String INTENT_MESSAGE_DEVICE = "com.aatg.elev.airballooncontroller.INTENT_MESSAGE_DEVICE";
 
     //onCreate gets called every time a layout change happens (mostly).
     //We don't want to get all our bluetooth devices every time. So we save them in a bundle.
