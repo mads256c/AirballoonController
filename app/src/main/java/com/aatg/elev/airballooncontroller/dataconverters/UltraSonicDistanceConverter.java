@@ -1,6 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.dataconverters;
-
-import java.util.Dictionary;
+package com.aatg.elev.airballooncontroller.dataconverters;
 
 public class UltraSonicDistanceConverter extends BaseDataConverter {
 

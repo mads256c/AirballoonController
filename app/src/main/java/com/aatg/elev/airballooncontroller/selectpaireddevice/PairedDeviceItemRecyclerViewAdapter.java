@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
+package com.aatg.elev.airballooncontroller.selectpaireddevice;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

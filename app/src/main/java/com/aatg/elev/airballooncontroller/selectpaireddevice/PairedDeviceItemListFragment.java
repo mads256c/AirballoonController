@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
+package com.aatg.elev.airballooncontroller.selectpaireddevice;
 
 import android.content.Context;
 import android.os.Bundle;

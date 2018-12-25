@@ -1,6 +1,6 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.airballooncontroller;
 
-import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
+import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 
 public interface IBluetoothController {
 

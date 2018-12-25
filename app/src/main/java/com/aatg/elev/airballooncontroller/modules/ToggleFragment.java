@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.modules;
+package com.aatg.elev.airballooncontroller.modules;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
-import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
-import com.aatg.elev.bluetoothdebugger.IBluetoothController;
+import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
+import com.aatg.elev.airballooncontroller.IBluetoothController;
 import com.aatg.elev.bluetoothdebugger.R;
 
 

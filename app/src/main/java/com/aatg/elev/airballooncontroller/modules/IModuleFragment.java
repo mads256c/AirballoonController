@@ -1,8 +1,8 @@
-package com.aatg.elev.bluetoothdebugger.modules;
+package com.aatg.elev.airballooncontroller.modules;
 
 import android.support.v4.app.Fragment;
 
-import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
+import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
 
 public interface IModuleFragment {
 

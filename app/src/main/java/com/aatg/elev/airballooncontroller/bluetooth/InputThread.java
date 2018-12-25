@@ -1,9 +1,9 @@
-package com.aatg.elev.bluetoothdebugger.bluetooth;
+package com.aatg.elev.airballooncontroller.bluetooth;
 
 
 import android.os.Looper;
 
-import com.aatg.elev.bluetoothdebugger.IPacketHandler;
+import com.aatg.elev.airballooncontroller.IPacketHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

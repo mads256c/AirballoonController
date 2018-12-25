@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.bluetooth;
+package com.aatg.elev.airballooncontroller.bluetooth;
 
 import java.io.IOException;
 import java.io.InputStream;

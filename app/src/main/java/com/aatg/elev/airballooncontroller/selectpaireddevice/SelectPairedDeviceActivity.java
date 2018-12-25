@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger.selectpaireddevice;
+package com.aatg.elev.airballooncontroller.selectpaireddevice;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.aatg.elev.bluetoothdebugger.ControlDeviceActivity;
+import com.aatg.elev.airballooncontroller.ControlDeviceActivity;
 import com.aatg.elev.bluetoothdebugger.R;
 
 import java.util.ArrayList;

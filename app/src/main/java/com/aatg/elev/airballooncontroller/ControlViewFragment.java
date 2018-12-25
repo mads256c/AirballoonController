@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.airballooncontroller;
 
 
 import android.os.Bundle;
@@ -10,14 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.aatg.elev.bluetoothdebugger.dataconverters.TemperatureConverter;
-import com.aatg.elev.bluetoothdebugger.dataconverters.UltraSonicDistanceConverter;
-import com.aatg.elev.bluetoothdebugger.modules.IModuleFragment;
-import com.aatg.elev.bluetoothdebugger.modules.PlotFragment;
-import com.aatg.elev.bluetoothdebugger.modules.PrintStatisticsFragment;
-import com.aatg.elev.bluetoothdebugger.modules.PrintValueFragment;
-import com.aatg.elev.bluetoothdebugger.modules.RangeFragment;
-import com.aatg.elev.bluetoothdebugger.modules.ToggleFragment;
+import com.aatg.elev.airballooncontroller.modules.PlotFragment;
+import com.aatg.elev.airballooncontroller.modules.RangeFragment;
+import com.aatg.elev.airballooncontroller.modules.ToggleFragment;
+import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.dataconverters.TemperatureConverter;
+import com.aatg.elev.airballooncontroller.dataconverters.UltraSonicDistanceConverter;
+import com.aatg.elev.airballooncontroller.modules.IModuleFragment;
+import com.aatg.elev.airballooncontroller.modules.PrintStatisticsFragment;
 
 import java.util.ArrayList;
 import java.util.List;

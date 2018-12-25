@@ -1,4 +1,4 @@
-package com.aatg.elev.bluetoothdebugger;
+package com.aatg.elev.airballooncontroller;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
@@ -14,10 +14,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.aatg.elev.bluetoothdebugger.bluetooth.BluetoothPacket;
-import com.aatg.elev.bluetoothdebugger.bluetooth.InputThread;
-import com.aatg.elev.bluetoothdebugger.bluetooth.OutputThread;
-import com.aatg.elev.bluetoothdebugger.modules.IModuleFragment;
+import com.aatg.elev.bluetoothdebugger.R;
+import com.aatg.elev.airballooncontroller.bluetooth.BluetoothPacket;
+import com.aatg.elev.airballooncontroller.bluetooth.InputThread;
+import com.aatg.elev.airballooncontroller.bluetooth.OutputThread;
+import com.aatg.elev.airballooncontroller.modules.IModuleFragment;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.aatg.elev.bluetoothdebugger.selectpaireddevice.SelectPairedDeviceActivity.INTENT_MESSAGE_DEVICE;
+import static com.aatg.elev.airballooncontroller.selectpaireddevice.SelectPairedDeviceActivity.INTENT_MESSAGE_DEVICE;
 
 public class ControlDeviceActivity extends AppCompatActivity implements IBluetoothController, IPacketHandler {
 
