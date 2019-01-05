@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <string name="app_name">Airballoon controller</string>
     <string name="action_settings">Settings</string>
@@ -26,7 +27,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
-    <!-- String arrays for spinner boxes-->
+    <!-- String arrays for spinner boxes -->
     <string-array name="module_types">
         <item>Servo</item>
         <item>Termometer</item>
