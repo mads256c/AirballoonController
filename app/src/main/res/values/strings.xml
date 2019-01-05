@@ -24,4 +24,19 @@
     <string name="title_activity_splash_screen">Airballoon Controller</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
+    <!-- String arrays for spinner boxes-->
+    <string-array name="module_types">
+        <item>Servo</item>
+        <item>Termometer</item>
+    </string-array>
+    <string-array name="port_number">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>
