@@ -6,7 +6,7 @@
     <string name="input_data">Input data:</string>
     <string name="connected_device">Connected device:</string>
     <string name="device_mac_placeholder">Device - AA:BB:CC:DD:EE</string>
-    <string name="title_activity_select_device">Select Device</string>
+    <string name="title_activity_select_device">Select Paired Device</string>
     <string name="title_activity_control_device">Control Device</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -15,7 +15,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error">Error</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="ignore_future_errors">Ignore future errors</string>
     <string name="add">Add</string>
     <string name="control">Control</string>
