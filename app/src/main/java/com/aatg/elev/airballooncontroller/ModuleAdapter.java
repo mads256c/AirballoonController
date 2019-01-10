@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aatg.elev.airballooncontroller.selectpaireddevice.PairedDeviceItem;
-import com.aatg.elev.bluetoothdebugger.Module;
+import com.aatg.elev.airballooncontroller.Module;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public final class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.View
     @Override
     public ModuleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.module_item, parent, false);
         return new ModuleAdapter.ViewHolder(view);
     }
 
