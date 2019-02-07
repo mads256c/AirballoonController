@@ -14,11 +14,29 @@ public final class Module implements Parcelable {
         this.port = port;
     }
 
+    public Module (Parcel in){
+        name = in.readString();
+        type = in.readString();
+        port = in.readString();
+    }
+
     public  String getName(){return name;}
 
     public String getType(){return type;}
 
     public int getPort(){return Integer.parseInt(port);}
+
+    public static final Creator<Module> CREATOR = new Creator<Module>() {
+        @Override
+        public Module createFromParcel(Parcel in) {
+            return new Module(in);
+        }
+
+        @Override
+        public Module[] newArray(int size) {
+            return new Module[size];
+        }
+    };
 
     @Override
     public int describeContents() {
